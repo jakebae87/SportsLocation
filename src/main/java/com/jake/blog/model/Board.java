@@ -1,11 +1,20 @@
 package com.jake.blog.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Board {
 
@@ -25,6 +34,9 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user; // FK 설정
+
+    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY)
+    private List<Reply> reply;
 
     @CreationTimestamp
     private Timestamp createDate;
