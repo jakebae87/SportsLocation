@@ -43,7 +43,7 @@ public class UserController {
         });
 
         userRepository.delete(user);
-        return null;
+        return "삭제 되었습니다.";
     }
 
     @GetMapping("/userList")
