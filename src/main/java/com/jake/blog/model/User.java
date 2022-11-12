@@ -18,7 +18,7 @@ public class User {
 
     @Id //Primary Key가 된다.
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto Increment 활용
-    private Long id;
+    private int id;
 
     @Column(nullable = false,length = 40)
     private String username;
