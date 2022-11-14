@@ -4,8 +4,7 @@ import com.jake.blog.model.User;
 import com.jake.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -14,14 +13,12 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
-    public int join(User user){
-        try{
-            userRepository.save(user);
-            return 1;
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return -1;
+    public void join(User user) {
+        userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User login(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 }

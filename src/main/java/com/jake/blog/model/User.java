@@ -20,13 +20,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto Increment 활용
     private int id;
 
-    @Column(nullable = false,length = 40)
+    @Column(nullable = false,length = 40, unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
