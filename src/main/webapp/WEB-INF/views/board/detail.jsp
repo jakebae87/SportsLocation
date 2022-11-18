@@ -4,21 +4,22 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
-    <form>
-        <div class="form-group">
-            <label for="title">제목</label>
-            <h3>${board.title}</h3>
-        </div>
+    <div>
+        <h3>${board.title}</h3>
+    </div>
+    <hr/>
+    <div>
+        <div>${board.content}</div>
+    </div>
+    <hr/>
 
-       <div class="form-group">
-            <label for="content">내용</label>
-            <div>
-                ${board.content}
-            </div>
-       </div>
+    <br/><br/>
 
-    </form>
-    <button id="btn-board-write" class="btn btn-primary">작성</button>
+    <div>
+        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+        <button class="btn btn-warning" id="btn-update">수정</button>
+        <button class="btn btn-danger" id="btn-delete">삭제</button>
+    </div>
 </div>
 
 <script src="/javascript/board.js"></script>

@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BoardController {
@@ -18,13 +19,19 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping({"", "/"})
-    public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
-        model.addAttribute("boards",boardService.list(pageable));
+    public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("boards", boardService.list(pageable));
         return "index";
     }
 
     @GetMapping("/board/write")
     public String write() {
         return "/board/write";
+    }
+
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable int id, Model model) {
+        model.addAttribute("board",boardService.detail(id));
+        return "/board/detail";
     }
 }
