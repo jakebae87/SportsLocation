@@ -20,6 +20,7 @@ public class BoardApiController {
     @PostMapping("/api/board")
     public ResponseDto<Integer> save(@RequestBody Board board,
                                      @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        System.out.println(board.getContent());
         boardService.write(board,principalDetail.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
