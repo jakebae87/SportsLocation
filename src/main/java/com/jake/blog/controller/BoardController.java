@@ -29,6 +29,7 @@ public class BoardController {
         return "/board/write";
     }
 
+
     @GetMapping("/board/{id}")
     public String detail(@PathVariable int id, Model model) {
         model.addAttribute("board",boardService.detail(id));
