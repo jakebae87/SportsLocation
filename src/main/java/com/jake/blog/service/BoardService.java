@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -42,5 +43,15 @@ public class BoardService {
     public void delete(int id) {
         System.out.println("글삭제하기 : " + id);
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void update(int id, Board requestBoard) {
+        Board updateBoard = boardRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("해당 글을 찾을 수 없습니다.");
+                });
+        updateBoard.setTitle(requestBoard.getTitle());
+        updateBoard.setContent(requestBoard.getContent());
     }
 }
