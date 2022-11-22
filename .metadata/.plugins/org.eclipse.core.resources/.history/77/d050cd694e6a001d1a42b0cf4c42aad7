@@ -1,0 +1,29 @@
+package com.example.demo.service;
+
+import java.io.IOException;
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CrawService {
+	
+	final String URL = "https://www.koreabasketball.or.kr/game/dom_schedule.php";
+	Connection conn = Jsoup.connect(URL);
+	
+	try {
+		Document document = conn.get();
+		Elements elements = document.getElementsByClass("borad_list_tbl");
+		
+		for(Element element : elements) {
+			System.out.println(element);
+		}
+	}catch(IOException e) {
+		e.printStackTrace();
+	}
+	
+}

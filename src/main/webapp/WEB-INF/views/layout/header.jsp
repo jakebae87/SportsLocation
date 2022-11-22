@@ -29,8 +29,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
+  <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
     <c:choose>
         <c:when test="${empty principal}">
             <ul class="navbar-nav">
@@ -48,7 +47,12 @@
                     <a class="nav-link" href="/board/write">글쓰기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user/information">회원정보</a>
+                    <a class="nav-link" href="https://www.koreabasketball.or.kr/game/dom_schedule.php">대회소식</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="/user/information">${principal.username}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">로그아웃</a>
@@ -56,7 +60,6 @@
             </ul>
         </c:otherwise>
     </c:choose>
-
   </div>
 </nav>
 <br>
