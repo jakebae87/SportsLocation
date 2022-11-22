@@ -31,6 +31,7 @@ dependencies {
 	implementation 'javax.servlet:jstl'										// JSTL
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'			// JSP 탬플릿 엔진
 	implementation 'org.springframework.security:spring-security-taglibs'	// Security 태그 라이브러리
+	implementation 'org.jsoup:jsoup:1.15.3'    // JSOUP (크롤링)
 }
 
 tasks.named('test') {
