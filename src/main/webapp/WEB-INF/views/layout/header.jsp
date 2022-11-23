@@ -25,6 +25,7 @@
 <body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <div class="container-fluid">
   <a class="navbar-brand" href="/">CourtFinder</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -47,7 +48,7 @@
                     <a class="nav-link" href="/board/write">글쓰기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://www.koreabasketball.or.kr/game/dom_schedule.php">대회소식</a>
+                    <a class="nav-link" href="/game">대회소식</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -60,6 +61,7 @@
             </ul>
         </c:otherwise>
     </c:choose>
+  </div>
   </div>
 </nav>
 <br>
