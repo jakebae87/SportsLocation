@@ -1,8 +1,10 @@
 package com.jake.blog.service;
 
 import com.jake.blog.model.Board;
+import com.jake.blog.model.Reply;
 import com.jake.blog.model.User;
 import com.jake.blog.repository.BoardRepository;
+import com.jake.blog.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,9 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional
     public void write(Board board, User user) {
@@ -53,5 +58,19 @@ public class BoardService {
                 });
         updateBoard.setTitle(requestBoard.getTitle());
         updateBoard.setContent(requestBoard.getContent());
+    }
+
+    @Transactional
+    public void replySave(User user, int boardId, Reply reply) {
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("댓글 쓰기 실패: 게시글 id를 찾을 수 없습니다.");
+                });
+
+        reply.setUser(user);
+        reply.setBoard(board);
+
+        replyRepository.save(reply);
     }
 }

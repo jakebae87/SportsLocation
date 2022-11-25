@@ -3,6 +3,8 @@ package com.jake.blog.controller.api;
 import com.jake.blog.config.auth.PrincipalDetail;
 import com.jake.blog.dto.ResponseDto;
 import com.jake.blog.model.Board;
+import com.jake.blog.model.Reply;
+import com.jake.blog.repository.ReplyRepository;
 import com.jake.blog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,13 @@ public class BoardApiController {
     @PutMapping("/api/board/{id}")
     public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
         boardService.update(id,board);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply,
+                                          @AuthenticationPrincipal PrincipalDetail principalDetail){
+        boardService.replySave(principalDetail.getUser(), boardId, reply);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

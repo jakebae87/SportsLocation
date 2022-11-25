@@ -1,5 +1,6 @@
 package com.jake.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,8 +35,9 @@ public class Board {
     @JoinColumn(name = "userId")
     private User user; // FK 설정
 
-    @OneToMany(mappedBy = "board",fetch = FetchType.LAZY)
-    private List<Reply> reply;
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"board"})
+    private List<Reply> replys;
 
     @CreationTimestamp
     private Timestamp createDate;
