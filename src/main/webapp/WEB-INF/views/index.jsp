@@ -2,38 +2,28 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="layout/header.jsp" %>
+    <div class="container-fluid" id="map" style="width:100%;height:100vh;"></div>
 
-<div class="container">
-    <c:forEach var="board" items="${boards.content}">
-        <div class="card m-2">
-          <div class="card-body">
-            <h4 class="card-title">${board.title}</h4>
-            <a href="/board/${board.id}" class="btn btn-primary">상세보기</a>
-          </div>
-        </div>
-    </c:forEach>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c3be97311e2ffcede15e42e31667c959"></script>
+    <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
 
-    <ul class="pagination justify-content-center">
-        <c:choose>
-            <c:when test="${boards.first}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
-            </c:otherwise>
-        </c:choose>
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-        <c:choose>
-            <c:when test="${boards.last}">
-                <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
-            </c:otherwise>
-        </c:choose>
-    </ul>
+    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+    var mapTypeControl = new kakao.maps.MapTypeControl();
 
-</div>
+    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
+    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+    </script>
 <%@ include file="layout/footer.jsp" %>
 
