@@ -35,7 +35,7 @@ public class Board {
     @JoinColumn(name = "userId")
     private User user; // FK 설정
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"board"})
     private List<Reply> replys;
 
