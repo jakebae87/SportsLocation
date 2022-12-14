@@ -8,7 +8,7 @@
 
     <script src="/javascript/map.js"></script>
 
-    <%@ include file="modal.jsp" %>
+<%@ include file="modal.jsp" %>
 
 <%@ include file="layout/footer.jsp" %>
 

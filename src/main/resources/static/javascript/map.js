@@ -6,38 +6,23 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+var lat = null;
+var lng = null;
 //-------------------------------- 마커 기능 시작 --------------------------------
 
 // 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
     // 클릭한 위도, 경도 정보를 가져옵니다
-    var lat = mouseEvent.latLng.getLat();
-    var lng = mouseEvent.latLng.getLng();
+    lat = mouseEvent.latLng.getLat();
+    lng = mouseEvent.latLng.getLng();
 
     // 클릭한 위치에 마커를 표시합니다
     addMarker(mouseEvent.latLng);
 
-    $('a[href="#myModal"]').modal({
-        fadeDuration: 250
-    });
+    // 모달 띄우기
+    $('#myModal').modal('show');
 
-    let data = {
-        latitude: lat,
-        longitude: lng
-    };
-
-    $.ajax({
-        type: "POST",
-        url: "/map",
-        data: JSON.stringify(data),
-        contentType: "application/json; charset=utf-8",
-        dataType: "text"
-    }).done(function(resp){
-        console.log(data);
-    }).fail(function(error){
-        alert(JSON.stringify(error));
-    });
 });
 
 // 마커를 생성하고 지도위에 표시하는 함수입니다
@@ -50,12 +35,30 @@ function addMarker(position) {
 
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-
 }
 
-function modal(){
-    $("#myModal").modal("show");
-}
+$("#btn-map-write").on("click",()=>{
+    let data = {
+            latitude: lat,
+            longitude: lng,
+            content: $("#content").val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/coordinate",
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        dataType: "text"
+    }).done(function(resp){
+        alert("새로운 장소가 등록되었습니다.");
+        $('#myModal').hide();
+        $('.modal').remove();
+    }).fail(function(error){
+        alert(JSON.stringify(error));
+    });
+
+});
 
 //-------------------------------- 마커 기능 끝 --------------------------------
 

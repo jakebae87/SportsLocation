@@ -9,9 +9,18 @@
 </head>
 <body>
 
-<p><a class="btn" href="#myModal">도달창띄우기2</a></p>
 <div id="myModal" class="modal">
-  <p>모달 테스트</p>
+  <form action="#">
+      <div class="form-group">
+        <label for="username">아이디</label>
+        <input type="text" class="form-control" id="username" value="${principal.username}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="content">내용</label>
+        <input type="text" class="form-control" id="content" placeholder="내용을 입력해주세요.">
+      </div>
+  </form>
+      <button id="btn-map-write" class="btn btn-primary" >작성</button>
 </div>
 
 <script src="/javascript/map.js"></script>
