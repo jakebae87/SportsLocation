@@ -10,5 +10,5 @@
 
 <%@ include file="modal.jsp" %>
 
-<%@ include file="layout/footer.jsp" %>
+<%@ include file="layout/footer.jsp" %>.
 

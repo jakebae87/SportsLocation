@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class MapService {
 
@@ -17,5 +19,9 @@ public class MapService {
     public void write(Map map, User user) {
         map.setUser(user);
         mapRepository.save(map);
+    }
+
+    public List<Map> give(){
+        return mapRepository.findAll();
     }
 }

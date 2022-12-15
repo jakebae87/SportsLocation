@@ -5,6 +5,7 @@
 
 <div class="container">
     <a href="/board/write" class="btn btn-primary m-2">글쓰기</a>
+
     <c:forEach var="board" items="${boards.content}">
         <div class="card m-2">
           <div class="card-body">

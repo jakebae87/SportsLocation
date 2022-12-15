@@ -8,7 +8,40 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 var lat = null;
 var lng = null;
-//-------------------------------- 마커 기능 시작 --------------------------------
+
+getData();
+
+//-------------------------------- DB 정보 가져오기 시작 --------------------------------
+ function getData() {
+    $.ajax({
+        type: 'get',
+        url: "/information",
+        dataType: "json",
+
+        success: function (data) {
+            for(var i = 0; i < data.length; i++){
+                // DB에 저장된 장소의 좌표정보 입니다.
+                var markerPosition = new kakao.maps.LatLng(data[i].latitude, data[i].longitude);
+
+                // 마커를 생성합니다.
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                //마커가 지도 위에 표시되록 설정합니다.
+                marker.setMap(map);
+            }
+        },
+        error: function(){
+            console.log("통신에러");
+        }
+    })
+
+ }
+//-------------------------------- DB 정보 가져오기 끝 --------------------------------
+
+
+//-------------------------------- 새로운 마커 추가 기능 시작 --------------------------------
 
 // 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -49,18 +82,18 @@ $("#btn-map-write").on("click",()=>{
         url: "/coordinate",
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
-        dataType: "text"
+        dataType: "json"
     }).done(function(resp){
         alert("새로운 장소가 등록되었습니다.");
-        $('#myModal').hide();
-        $('.modal').remove();
     }).fail(function(error){
         alert(JSON.stringify(error));
     });
 
 });
 
-//-------------------------------- 마커 기능 끝 --------------------------------
+//-------------------------------- 새로운 마커 추가 기능 끝 --------------------------------
+
+
 
 //-------------------------------- 지도 컨트롤러 시작 --------------------------------
 

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MapApiController {
 
@@ -19,7 +21,11 @@ public class MapApiController {
     public ResponseDto<Integer> mapData(@RequestBody Map map,
                                         @AuthenticationPrincipal PrincipalDetail principalDetail) {
         mapService.write(map, principalDetail.getUser());
-        System.out.println(map.getContent());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @GetMapping("/information")
+    public List<Map> mapInfo() {
+        return mapService.give();
     }
 }
