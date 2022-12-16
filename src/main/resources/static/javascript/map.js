@@ -1,18 +1,29 @@
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+var mapContainer = document.getElementById('map')// 지도를 표시할 div
+
+var mapOption = {
+    center: new kakao.maps.LatLng(geo_latitude, geo_longitude), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var geo_latitude = null;
+var geo_longitude = null;
+
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(position){
+        geo_latitude = position.coords.latitude;
+        geo_longitude = position.coords.longitude;
+    });
+}
 
 var lat = null;
 var lng = null;
 
-getData();
+getSavedLocations();
 
 //-------------------------------- DB 정보 가져오기 시작 --------------------------------
- function getData() {
+ function getSavedLocations() {
     $.ajax({
         type: 'get',
         url: "/information",
@@ -85,6 +96,7 @@ $("#btn-map-write").on("click",()=>{
         dataType: "json"
     }).done(function(resp){
         alert("새로운 장소가 등록되었습니다.");
+        location.href="/";
     }).fail(function(error){
         alert(JSON.stringify(error));
     });
