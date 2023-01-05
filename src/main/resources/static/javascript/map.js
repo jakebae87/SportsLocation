@@ -61,9 +61,6 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     lat = mouseEvent.latLng.getLat();
     lng = mouseEvent.latLng.getLng();
 
-    // 클릭한 위치에 마커를 표시합니다
-    addMarker(mouseEvent.latLng);
-
     // 모달 띄우기
     $('#myModal').modal('show');
 
@@ -96,7 +93,11 @@ $("#btn-map-write").on("click",()=>{
         dataType: "json"
     }).done(function(resp){
         alert("새로운 장소가 등록되었습니다.");
-        location.href="/";
+
+        location.replace("http://localhost:8000/");
+
+        // 클릭한 위치에 마커를 표시합니다
+        addMarker(mouseEvent.latLng);
     }).fail(function(error){
         alert(JSON.stringify(error));
     });
